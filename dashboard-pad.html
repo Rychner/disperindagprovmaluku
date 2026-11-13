@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id" class="guard">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Dashboard Setoran PAD — Disperindag Maluku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/pad.css">
+<!-- Penjaga akses (DEMO, sisi browser): tanpa sesi -> kembali ke login. Lihat catatan di assets/pad-auth.js -->
+<script src="assets/pad-auth.js"></script>
+<script>
+  if (!PadAuth.current()) { location.replace("login-pad.html?need=1"); }
+  else { document.documentElement.classList.remove("guard"); }
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-checkc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m22 17-8.5-8.5-5 5L2 7"/><path d="M16 17h6v-6"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-dl" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.42l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42Z"/><path d="M7 7h.01"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <div class="topbar__in">
+    <a class="brand" href="index.html" aria-label="Ke beranda">
+      <img src="assets/logo.png" alt="Logo Provinsi Maluku">
+      <span class="brand__text"><strong>Dashboard PAD</strong><span>Disperindag Provinsi Maluku</span></span>
+    </a>
+    <span class="sp"></span>
+    <div class="who" aria-label="Pengguna masuk">
+      <span class="who__av" id="u-av">?</span>
+      <div><b id="u-nama">—</b><span id="u-peran">—</span></div>
+    </div>
+    <button class="btn btn--sm" id="logout" type="button"><svg class="i"><use href="#i-logout"/></svg>Keluar</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- ============ JUDUL ============ -->
+  <section class="pagehead">
+    <div>
+      <h1>Dashboard Setoran PAD</h1>
+      <p><svg class="i"><use href="#i-cal"/></svg><span>Data per <span id="tgl">…</span></span></p>
+    </div>
+    <div class="pagehead__act">
+      <span class="chip-ro" id="ro" hidden><svg class="i"><use href="#i-eye"/></svg>Akses hanya lihat</span>
+      <button class="btn btn--primary" id="btn-add" type="button" hidden><svg class="i"><use href="#i-plus"/></svg>Catat Setoran</button>
+    </div>
+  </section>
+
+  <!-- ============ PERIODE (tile = filter) ============ -->
+  <section class="tiles" id="tiles" aria-label="Pilih periode"></section>
+
+  <section class="card year" aria-label="Realisasi tahun berjalan">
+    <div>
+      <h2 id="y-lbl">Realisasi tahun berjalan</h2>
+      <b id="y-val">—</b>
+    </div>
+    <div class="meter">
+      <div class="meter__bar" role="progressbar" id="y-bar" aria-valuemin="0" aria-valuemax="100" aria-label="Realisasi terhadap target tahunan"><i id="y-fill" style="width:0"></i></div>
+      <div class="meter__txt"><span id="y-pct">—</span><span id="y-tgt">—</span></div>
+    </div>
+  </section>
+
+  <!-- ============ GRAFIK + RINCIAN ============ -->
+  <section class="grid2">
+    <article class="card panel" id="panel-chart">
+      <div class="panel__head">
+        <div>
+          <h2 id="chart-title">Tren setoran PAD</h2>
+          <p id="chart-sub">—</p>
+        </div>
+        <div class="seg" id="view" role="group" aria-label="Tampilan">
+          <button type="button" data-v="grafik" aria-pressed="true">Grafik</button>
+          <button type="button" data-v="tabel" aria-pressed="false">Tabel</button>
+        </div>
+      </div>
+      <div class="chart" id="chart">
+        <div class="tip" id="tip" role="status"></div>
+      </div>
+      <div class="chart-key" id="chart-key">
+        <span><i style="background:var(--series)"></i>Periode berjalan</span>
+        <span><i style="background:var(--series-dim)"></i>Periode sebelumnya</span>
+      </div>
+      <div class="chart-table" id="chart-table" hidden>
+        <table>
+          <thead><tr><th>Periode</th><th class="r">Jumlah setoran</th><th class="r">Transaksi</th></tr></thead>
+          <tbody id="chart-tbody"></tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="card panel">
+      <div class="panel__head">
+        <div>
+          <h2 id="src-title">Per sumber PAD</h2>
+          <p id="src-sub">—</p>
+        </div>
+      </div>
+      <ul class="hb-list" id="src-list"></ul>
+      <div class="total-line"><span>Total</span><b id="src-total">—</b></div>
+    </article>
+  </section>
+
+  <!-- ============ DAFTAR SETORAN ============ -->
+  <section class="card tablecard" aria-label="Daftar setoran">
+    <div class="panel__head">
+      <div>
+        <h2 id="tb-title">Setoran</h2>
+        <p id="tb-sub">—</p>
+      </div>
+      <button class="btn btn--sm" id="csv" type="button"><svg class="i"><use href="#i-dl"/></svg>Unduh CSV</button>
+    </div>
+    <div class="tscroll">
+      <table>
+        <thead>
+          <tr><th>Tanggal</th><th>Sumber PAD</th><th>No. bukti setor</th><th class="r">Jumlah</th><th>Status</th></tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="empty" id="empty" hidden>Belum ada setoran pada periode ini.</div>
+    </div>
+    <div class="tfoot">
+      <span id="tb-count">—</span>
+      <button class="btn btn--sm" id="more" type="button" hidden>Tampilkan lebih banyak</button>
+    </div>
+  </section>
+
+  <p class="note">
+    <b>Keterangan:</b> angka mencakup seluruh setoran yang dicatat, baik yang sudah terverifikasi maupun yang masih menunggu verifikasi.
+    Perbandingan minggu dan bulan dihitung terhadap rentang hari yang sama pada periode sebelumnya.
+    <b>Data dan akses pada halaman ini adalah prototipe demo</b> — belum terhubung ke database dan belum memakai autentikasi server.
+  </p>
+</main>
+
+<!-- ============ FORM CATAT SETORAN ============ -->
+<dialog id="dlg" aria-labelledby="dlg-title">
+  <div class="dlg__head">
+    <h2 id="dlg-title">Catat Setoran</h2>
+    <button class="dlg__x" type="button" id="dlg-x" aria-label="Tutup"><svg class="i"><use href="#i-x"/></svg></button>
+  </div>
+  <form id="fm" novalidate>
+    <div class="row2">
+      <div class="field">
+        <label for="f-tgl">Tanggal setor</label>
+        <div class="control" id="c-tgl"><svg class="i"><use href="#i-cal"/></svg><input id="f-tgl" type="date"></div>
+        <div class="err" id="e-tgl" hidden></div>
+      </div>
+      <div class="field">
+        <label for="f-sumber">Sumber PAD</label>
+        <div class="control" id="c-sumber"><svg class="i"><use href="#i-tag"/></svg><select id="f-sumber"></select><svg class="i chev"><use href="#i-chev"/></svg></div>
+        <div class="err" id="e-sumber" hidden></div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-lokasi">Lokasi / penyetor</label>
+      <div class="control" id="c-lokasi"><svg class="i"><use href="#i-pin"/></svg><input id="f-lokasi" type="text" list="lokasi-list" maxlength="60" autocomplete="off" placeholder="Contoh: Pasar Mardika"></div>
+      <datalist id="lokasi-list"></datalist>
+      <div class="err" id="e-lokasi" hidden></div>
+    </div>
+    <div class="field">
+      <label for="f-jumlah">Jumlah setoran</label>
+      <div class="control rp" id="c-jumlah"><span class="prefix">Rp</span><input id="f-jumlah" type="text" inputmode="numeric" autocomplete="off" placeholder="0"></div>
+      <div class="err" id="e-jumlah" hidden></div>
+    </div>
+    <div class="field">
+      <label for="f-bukti">No. bukti setor <span style="font-weight:400;color:var(--muted)">(opsional)</span></label>
+      <div class="control" id="c-bukti"><svg class="i"><use href="#i-tag"/></svg><input id="f-bukti" type="text" maxlength="30" autocomplete="off" placeholder="Dibuat otomatis jika dikosongkan"></div>
+      <div class="err" id="e-bukti" hidden></div>
+    </div>
+    <div class="acts">
+      <button class="btn" type="button" id="dlg-cancel">Batal</button>
+      <button class="btn btn--primary" type="submit">Simpan Setoran</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><svg class="i"><use href="#i-checkc"/></svg><span id="toast-txt"></span></div>
+
+<script src="assets/pad-data.js"></script>
+<script src="assets/pad-dashboard.js"></script>
+</body>
+</html>

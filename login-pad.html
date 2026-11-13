@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Masuk Petugas — Setoran PAD · Disperindag Maluku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/pad.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><path d="m2 2 20 20"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></symbol>
+  </defs>
+</svg>
+
+<div class="login">
+  <aside class="login__side">
+    <a class="side-brand" href="index.html" aria-label="Kembali ke beranda">
+      <img src="assets/logo.png" alt="Logo Provinsi Maluku">
+      <span><strong>Dinas Perindustrian<br>dan Perdagangan</strong><span>Provinsi Maluku</span></span>
+    </a>
+
+    <div class="side-copy">
+      <h1>Portal Setoran PAD</h1>
+      <p>Pantau dan catat setoran Pendapatan Asli Daerah dari layanan Disperindag secara harian, mingguan, dan bulanan.</p>
+      <ul class="side-list">
+        <li><span class="ic"><svg class="i"><use href="#i-chart"/></svg></span><span>Rekap setoran harian, mingguan, dan bulanan dalam satu dashboard.</span></li>
+        <li><span class="ic"><svg class="i"><use href="#i-edit"/></svg></span><span>Pencatatan setoran per sumber PAD lengkap dengan nomor bukti setor.</span></li>
+        <li><span class="ic"><svg class="i"><use href="#i-shield"/></svg></span><span>Akses terbatas untuk petugas yang terdaftar.</span></li>
+      </ul>
+    </div>
+
+    <p class="side-foot">&copy; Dinas Perindustrian dan Perdagangan Provinsi Maluku</p>
+  </aside>
+
+  <main class="login__main">
+    <div class="login__card">
+      <h2>Masuk sebagai petugas</h2>
+      <p class="sub">Halaman ini hanya untuk petugas yang terdaftar.</p>
+
+      <form id="form" novalidate>
+        <div id="alert" class="alert" role="alert" aria-live="assertive"><svg class="i"><use href="#i-alert"/></svg><span id="alert-txt"></span></div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <div class="control" id="c-email">
+            <svg class="i"><use href="#i-mail"/></svg>
+            <input id="email" name="email" type="email" autocomplete="username" placeholder="nama@instansi.go.id" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pw">Kata sandi</label>
+          <div class="control" id="c-pw">
+            <svg class="i"><use href="#i-lock"/></svg>
+            <input id="pw" name="password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" required>
+            <button class="toggle" id="toggle" type="button" aria-label="Tampilkan kata sandi"><svg class="i"><use href="#i-eye"/></svg></button>
+          </div>
+        </div>
+
+        <button class="btn btn--primary btn--block" type="submit" id="submit">Masuk ke Dashboard</button>
+      </form>
+
+      <section class="demo" aria-label="Akun demo">
+        <h3><svg class="i"><use href="#i-key"/></svg>Akun demo (prototipe)</h3>
+        <p>Autentikasi pada prototipe ini berjalan di browser dan <b>belum aman</b>. Klik salah satu akun untuk mengisi form.</p>
+        <ul id="demo"></ul>
+      </section>
+
+      <a class="back" href="index.html"><svg class="i"><use href="#i-left"/></svg>Kembali ke beranda</a>
+    </div>
+  </main>
+</div>
+
+<script src="assets/pad-auth.js"></script>
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var DASH = "dashboard-pad.html";
+
+  // sudah login -> langsung ke dashboard
+  if (PadAuth.current()) { location.replace(DASH); return; }
+
+  function showAlert(msg, kind) {
+    var a = $("alert");
+    a.className = "alert show " + (kind === "info" ? "alert--info" : "alert--err");
+    a.querySelector("use").setAttribute("href", kind === "info" ? "#i-info" : "#i-alert");
+    $("alert-txt").textContent = msg;
+  }
+  function clearAlert() { $("alert").className = "alert"; }
+
+  // pesan dari halaman lain
+  var q = new URLSearchParams(location.search);
+  if (q.get("need")) showAlert("Silakan masuk untuk mengakses dashboard PAD.", "info");
+  if (q.get("out"))  showAlert("Anda telah keluar.", "info");
+
+  // akun demo
+  var ul = $("demo");
+  PadAuth.demoUsers.forEach(function (u) {
+    var li = document.createElement("li");
+    var b = document.createElement("button");
+    b.type = "button";
+    var d = document.createElement("div");
+    var t = document.createElement("b"); t.textContent = u.peran;
+    var s = document.createElement("span"); s.textContent = u.email;
+    d.appendChild(t); d.appendChild(s);
+    var em = document.createElement("em"); em.textContent = "Isi otomatis";
+    b.appendChild(d); b.appendChild(em);
+    b.addEventListener("click", function () {
+      $("email").value = u.email; $("pw").value = u.password;
+      $("c-email").classList.remove("invalid"); $("c-pw").classList.remove("invalid");
+      clearAlert(); $("submit").focus();
+    });
+    li.appendChild(b); ul.appendChild(li);
+  });
+
+  // tampilkan/sembunyikan sandi
+  $("toggle").addEventListener("click", function () {
+    var show = $("pw").type === "password";
+    $("pw").type = show ? "text" : "password";
+    this.setAttribute("aria-label", show ? "Sembunyikan kata sandi" : "Tampilkan kata sandi");
+    this.querySelector("use").setAttribute("href", show ? "#i-eyeoff" : "#i-eye");
+  });
+
+  $("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    clearAlert();
+    var email = $("email").value.trim(), pw = $("pw").value;
+    $("c-email").classList.toggle("invalid", !email);
+    $("c-pw").classList.toggle("invalid", !pw);
+    if (!email || !pw) { showAlert("Email dan kata sandi wajib diisi."); (!email ? $("email") : $("pw")).focus(); return; }
+
+    var res = PadAuth.login(email, pw);
+    if (res.ok) { location.href = DASH; return; }
+    if (res.err === "storage") { showAlert("Browser memblokir penyimpanan sesi. Aktifkan penyimpanan situs lalu coba lagi."); return; }
+    $("c-email").classList.add("invalid"); $("c-pw").classList.add("invalid");
+    showAlert("Email atau kata sandi salah.");
+    $("pw").select();
+  });
+})();
+</script>
+</body>
+</html>
